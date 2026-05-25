@@ -4,23 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "dev": "ts-node-dev src/server.ts",
-  "build": "tsc",
-  "start": "node dist/server.js",
-  "postinstall": "prisma generate"
-},
+    "dev": "ts-node-dev src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "postinstall": "prisma generate"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^6.9.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "prisma": "^5.22.0"
+    "prisma": "^6.9.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",

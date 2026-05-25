@@ -12,8 +12,10 @@ export const authenticate = (
 ) => {
   const header = req.headers.authorization;
 
-  if (!header) {
-    return res.status(401).json({ message: "Unauthorized" });
+  if (!header || !header.startsWith("Bearer ")) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
   }
 
   const token = header.split(" ")[1];
@@ -25,8 +27,11 @@ export const authenticate = (
     ) as { userId: string };
 
     req.user = decoded;
+
     next();
-  } catch {
-    return res.status(401).json({ message: "Invalid token" });
+  } catch (error) {
+    return res.status(401).json({
+      message: "Invalid token",
+    });
   }
 };

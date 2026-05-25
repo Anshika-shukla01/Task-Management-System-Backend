@@ -44,23 +44,45 @@ export const getTasks = async (req: AuthRequest, res: Response) => {
         ? searchQuery
         : undefined;
 
+    // const tasks = await prisma.task.findMany({
+    //   where: {
+    //     userId: req.user!.userId,
+    //     ...(status !== undefined && { status }),
+    //     ...(search && {
+    //       title: {
+    //         contains: search,
+    //       },
+    //     }),
+    //   },
+    //   skip: (page - 1) * limit,
+    //   take: limit,
+    //   orderBy: { createdAt: "desc" },
+    // });
+
+    // const total = await prisma.task.count({
+    //   where: { userId: req.user!.userId },
+    // });
+
+    const whereClause = {
+      userId: req.user!.userId,
+      ...(status !== undefined && { status }),
+      ...(search && {
+        title: {
+          contains: search,
+          mode: "insensitive",
+        },
+      }),
+    };
+
     const tasks = await prisma.task.findMany({
-      where: {
-        userId: req.user!.userId,
-        ...(status !== undefined && { status }),
-        ...(search && {
-          title: {
-            contains: search,
-          },
-        }),
-      },
+      where: whereClause,
       skip: (page - 1) * limit,
       take: limit,
       orderBy: { createdAt: "desc" },
     });
 
     const total = await prisma.task.count({
-      where: { userId: req.user!.userId },
+      where: whereClause,
     });
 
     return res.status(200).json({
