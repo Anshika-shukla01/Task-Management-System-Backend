@@ -69,7 +69,6 @@ export const getTasks = async (req: AuthRequest, res: Response) => {
       ...(search && {
         title: {
           contains: search,
-          mode: "insensitive",
         },
       }),
     };
